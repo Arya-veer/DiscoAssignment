@@ -44,7 +44,8 @@ void main_menu(int n, int matrix[n][n]){
             printf("%s\n","YES, the given relation is reflexive!\n\n");
         }
     }
-    else if (input == 2){
+
+    else if(input == 2){
         x = symmetric(n,matrix);
         if(x == 0){
             printf("%s\n","NO, it is not possible to always return back to the previous website from the current website in one step!\n\n");
@@ -55,6 +56,7 @@ void main_menu(int n, int matrix[n][n]){
             printf("%s\n","YES, it is not possible to always return back to the previous website from the current website in one step!\n\n");
         }
     }
+
     else if(input == 3){
         x = transitive(n,matrix);
         if(x == 0){
@@ -66,10 +68,8 @@ void main_menu(int n, int matrix[n][n]){
             printf("%s\n","YES, every website has all the links to the websites!\n\n");
         }
     }
-    //  TO BE DONE 
-    // else if(input == 3){ 
-    // }
-    else if (input == 4){
+   
+    else if(input == 4){
         for(int j=0;j<n;j++){
             if(matrix[j][j] == 1){
                 x = 1;
@@ -81,6 +81,7 @@ void main_menu(int n, int matrix[n][n]){
             }
         } 
     }
+
     else if(input == 5){
         for(int i = 0;i<n;i++){
             for(int j=0;j<n;j++){
@@ -98,6 +99,7 @@ void main_menu(int n, int matrix[n][n]){
             }
         }
     }
+    
     else if(input == 6){
         for(int i = 0;i<n;i++){
             for(int j=0;j<n;j++){
@@ -117,7 +119,8 @@ void main_menu(int n, int matrix[n][n]){
             }
         }
     }
-    else if (input == 7){
+
+    else if(input == 7){
         int arr[n][n];
         for(int i=0;i<n;i++){
             int y = 1;
@@ -155,16 +158,20 @@ void main_menu(int n, int matrix[n][n]){
         }
         else{
             printf("YES\n");
-            printf("Taking you to menu 4");
+            printf("Taking you to menu 4\n");
             menu4(n,matrix);
         }
     }
+
     else if(input == 9){
         exit(0);
     }
+
+
     if(x == 0){
         printf("%s\n","NO");
     }
+
     else{
         printf("%s\n","YES");
     }
@@ -178,18 +185,26 @@ void menu2(int n,int matrix[n][n],int input){
         if(input == 1){
             make_reflexive(n,matrix);
         }
+
         if(input == 2){
             make_symmetric(n,matrix);
         }
+
         if(input == 3){
             make_transitive(n,matrix);
         }
+
+        if(input == 7){
+
+        }
+        
     }
     else{
         scanf("%d",&input);
         main_menu(n,matrix);
     }
 }
+
 
 void menu4(int n, int matrix[n][n]){
     int z;
@@ -205,8 +220,8 @@ void menu4(int n, int matrix[n][n]){
         for(int i =0; i < n; i++){
             for(int j = 0; j < n; j++){
                 if(matrix[j][i] == 1){
-                    z = 1;
-                    strcpy(name,"website_name");
+                    z = i;
+        
                     continue;
                 }
                 else{
@@ -214,17 +229,20 @@ void menu4(int n, int matrix[n][n]){
                     break;
                 }
             }
-            if(z = 1){
-                printf("%s\n",name);
+            if(z){
+                printf("Serial number of website whose link is in all websites is : %d\n",z+1);
+            }
+            else{
+                printf("No such website exists!");
             }
         }
     }
-    else if(input == 3){
+
+    if(input == 3){
         for(int i =0; i < n; i++){
             for(int j = 0; j < n; j++){
                 if(matrix[i][j] == 1){
-                    z = 1;
-                    strcpy(name,"website_name");
+                    z = i;
                     continue;
                 }
                 else{
@@ -232,12 +250,17 @@ void menu4(int n, int matrix[n][n]){
                     break;
                 }
             }
-            if(z = 1){
-                printf("%s\n",name);
+            if(z){
+                printf("Serial number of website who has link of all websites is :%d\n",z+1);
+            }
+            else{
+                printf("No such website exists!");
             }
         }  
     }
-    else if(input == 4){
+
+    if(input == 4){
+        z = 0;
         for(int i =0; i < n; i++){
             for(int j = 0; j < n; j++){
                 if(matrix[i][j] == 1 && i!=j){
@@ -245,43 +268,48 @@ void menu4(int n, int matrix[n][n]){
                     continue;
                 }
                 else if(matrix[i][j] == 1 && i==j){
-                    z = 1;
-                    strcpy(name,"website_name");
-                    break;
+                    z = i;
                 }
             }
-            if(z = 1){
-                printf("%s\n",name);
+            if(z){
+                printf("Website which has link to no other website but itself is : %d\n",i+1);
             }
         }
     }
-    else if(input == 5){
+
+    if(input == 5){
+        z = 0;
         for(int i =0; i < n; i++){
             for(int j = 0; j < n; j++){
-                if(matrix[j][i] == 1 && i!=j){
+                if(matrix[i][j] == 1 && i!=j){
                     z = 0;
                     continue;
                 }
                 else if(matrix[i][j] == 1 && i==j){
-                    z = 1;
-                    strcpy(name,"website_name");
-                    break;
+                    z = i;
                 }
             }
-            if(z = 1){
-                printf("%s\n",name);
+            if(z){
+                printf("Website which has link to no other website but itself is : %d\n",i+1);
             }
         }
     }
-    else if(input == 6){
 
+    if(input == 6){
+
+    }
+    if(input == 7){
+
+    }
+    if(input == 8){
+
+    }
+    if(input == 9){
+        main_menu(n,matrix);
     }
 
 }
-// int main_menu_7(int arr[n][n],int x,int y){
-//     if(arr[x][y] != 0){
-//     }
-// } 
+
 int reflexive(int n,int matrix[n][n]){
     int x;
     int k = n;
@@ -297,6 +325,7 @@ int reflexive(int n,int matrix[n][n]){
     }
     return x;
 }
+
 int anti_symmetric(int n,int matrix[n][n]){
     int x;
     for(int i = 0;i<n;i++){
@@ -318,6 +347,7 @@ int anti_symmetric(int n,int matrix[n][n]){
     }
     return x;
 }
+
 int transitive(int n,int matrix[n][n]){
     int x;
     for(int i=0;i<n;i++){
@@ -341,6 +371,7 @@ int transitive(int n,int matrix[n][n]){
     }
     return 1;
 }
+
 int symmetric(int n,int matrix[n][n]){
     int x;
     for(int i = 0;i<n;i++){
@@ -374,6 +405,7 @@ void make_reflexive(int n,int matrix[n][n]){
     write_to_file(n,matrix);
     exit(0);
 }
+
 void make_symmetric(int n,int matrix[n][n]){
     for(int i = 0;i<n;i++){
         for(int j=0;j<n;j++){
@@ -388,6 +420,7 @@ void make_symmetric(int n,int matrix[n][n]){
     write_to_file(n,matrix);
     exit(0);
 }
+
 void make_transitive(int n,int matrix[n][n]){
     for(int k=0;k<n;k++){
         for(int j=0;j<n;j++){
@@ -406,12 +439,21 @@ void make_transitive(int n,int matrix[n][n]){
 }
 
 void make_hasse(int n,int matrix[n][n]){
-    for(int j = 0; j<n;j++){
-        for(int i = 0;i<n;i++){
-            if(matrix[i][j]){
-                for(int k = 0;k<n;k++){
-                    if(matrix[j][k]){
+    int k = n;
+    for(int i = 0;i<k;i++){
+        for(int j=0;j<k;j++){
+            if(i==j){
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            for(int k=0;k<n;k++){
+                if(matrix[i][j] && matrix[j][k]){
+                    if(matrix[i][k]){
                         matrix[i][k] = 0;
+                        continue;
                     }
                 }
             }
@@ -498,9 +540,10 @@ int main(){
         row++;
         char *string_splitter = strtok(buf, ",");
         if (row == 1){ // we do not want to take the labels
-            for(int i= 0;i<col;i++){
-                websiteNames[i][50] = *string_splitter ;
-            }
+            // for(int i= 0;i<col;i++){
+            //     websiteNames[i][50] = *string_splitter ;
+            // }
+
         }
         for (int j = 0; j <= col; j++){
             if (j != 0){
@@ -520,6 +563,6 @@ int main(){
         }
         printf("\n");
     }
-    main_menu(n,matrix);
+    main_menu(4,test_matrix);
 
 }
