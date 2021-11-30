@@ -19,6 +19,7 @@ void make_transitive(int n, int matrix[n][n]);
 void make_hasse(int n, int matrix[n][n]);
 void print(int n, int matrix[n][n]);
 void write_to_file(int n, int matrix[n][n]);
+void make_equivalence(int n, int matrix[n][n]);
 
 void plot(char *fname)
 {
@@ -251,35 +252,7 @@ void menu2(int n, int matrix[n][n], int input)
 
         if (input == 7)
         {
-            int k = n;
-            for (int i = 0; i < k; i++){
-                for (int j = 0; j < k; j++){
-                    if (i == j){
-                        matrix[i][j] = 1;
-                    }
-                }
-            }
-            for (int i = 0; i < k; i++){
-                for (int j = 0; j < k; j++){
-                    if (matrix[i][j] == 1){
-                        if (matrix[i][j] != matrix[j][i]){
-                            matrix[j][i] = 1;
-                        }
-                    }
-                }
-            }
-            for (int k = 0; k < k; k++){
-                for (int j = 0; j < k; j++){
-                    for (int i = 0; i < k; i++){
-                        if (matrix[i][k] && matrix[k][j]){
-                            if (!matrix[i][j]){
-                                matrix[i][j] = 1;
-                            }
-                        }
-                    }
-                }
-            }
-            make_transitive(n,matrix);
+            make_equivalence(n,matrix);
         }
     }
     else
@@ -287,6 +260,12 @@ void menu2(int n, int matrix[n][n], int input)
         scanf("%d", &input);
         main_menu(n, matrix);
     }
+}
+
+void menu3(int n,int matrix[n][n]){
+    printf("\n\n \t\t\t\t\t\t\t\t\t\t  MENU 4 \n\n");
+    printf(" Do you want to know the nodes in each piece? yes or no?(List all the pieces and their corresponding websites else return to Main Menu\n\n ");
+
 }
 
 void menu4(int n, int matrix[n][n])
@@ -423,20 +402,26 @@ void menu4(int n, int matrix[n][n])
         printf("How many website numbers do you want to enter?? It must be less than %d\n", n);
         scanf("%d\n", &no);
         int win[no];
+
         for (int i = 0; i < no; i++)
         {
             scanf("%d", &win[i]);
         }
         int wout[n];
+        for (int i = 0; i < n; i++)
+            {
+                wout[i] = 100;
+            }
+            
         for (int k = 0; k < no; k++)
         {
             for (int j = 0; j < n; j++)
             {
-                if (matrix[win[k] - 1][j] == 1)
+                if ((matrix[win[k] - 1][j] == 1) && wout[j] != 0)
                 {
                     wout[j] = 1;
                 }
-                else
+                else if((matrix[win[k]-1][j] != 1) && wout[j] != 0)
                 {
                     wout[j] = 0;
                 }
@@ -452,6 +437,7 @@ void menu4(int n, int matrix[n][n])
         }
         printf("\n");
     }
+
     if (input == 7)
     {
         int no;
@@ -463,19 +449,30 @@ void menu4(int n, int matrix[n][n])
             scanf("%d", &win[i]);
         }
         int wout[n];
+        for (int i = 0; i < n; i++)
+            {
+                wout[i] = 100;
+            }
+        
+        
         for (int k = 0; k < no; k++)
         {
             for (int j = 0; j < n; j++)
             {
-                if (matrix[j][win[k] - 1] == 1)
+                if ((matrix[j][win[k]-1] == 1) && wout[j] != 0)
                 {
                     wout[j] = 1;
                 }
-                else
+                else if((matrix[j][win[k]-1] != 1) && wout[j] != 0)
                 {
                     wout[j] = 0;
                 }
             }
+            for (int i = 0; i < n; i++)
+            {
+                printf("%d ", wout[i] );
+            }
+            printf("\n");
         }
 
         for (int i = 0; i < n; i++)
@@ -487,9 +484,12 @@ void menu4(int n, int matrix[n][n])
         }
         printf("\n");
     }
+    
     if (input == 8)
     {
+        
     }
+
     if (input == 9)
     {
         main_menu(n, matrix);
@@ -664,6 +664,38 @@ void make_transitive(int n, int matrix[n][n])
     exit(0);
 }
 
+void make_equivalence(int n, int matrix[n][n]){
+    int k = n;
+    for (int i = 0; i < k; i++){
+        for (int j = 0; j < k; j++){
+            if (i == j){
+                matrix[i][j] = 1;
+            }
+        }
+    }
+    for (int i = 0; i < k; i++){
+        for (int j = 0; j < k; j++){
+            if (matrix[i][j] == 1){
+                if (matrix[i][j] != matrix[j][i]){
+                    matrix[j][i] = 1;
+                }
+            }
+        }
+    }
+    for (int k = 0; k < k; k++){
+        for (int j = 0; j < k; j++){
+            for (int i = 0; i < k; i++){
+                if (matrix[i][k] && matrix[k][j]){
+                    if (!matrix[i][j]){
+                        matrix[i][j] = 1;
+                    }
+                }
+            }
+        }
+    }
+    make_transitive(n,matrix);
+}
+
 void make_hasse(int n, int matrix[n][n])
 {
     int k = n;
@@ -695,6 +727,10 @@ void make_hasse(int n, int matrix[n][n])
         }
     }
     print(n, matrix);
+}
+
+void check_latice(int n, int matrix[n][n]){
+
 }
 
 void print(int n, int matrix[n][n])
@@ -811,7 +847,7 @@ int main()
     // for(int i = 0 ; i<n;i++){
     //     printf("%d",*websiteNames[i]);
     // }
-    int test_matrix[5][5] = {{1,1,0,0,0}, {0,0,0,1,0}, {0,0,0,0,0}, {0,0,0,0,0},{0,0,0,0,1}};
+    int test_matrix[4][4] = {{1,1,1,1}, {0,1,1,1}, {0,0,1,1}, {0,0,0,1}};
 
-    main_menu(n,matrix);
+    main_menu(4,test_matrix);
 }
