@@ -1,0 +1,10 @@
+*
+*/
+!.gitignore
+!visualiser.c
+!visualiser
+!visualise.py
+!SampleInput.csv
+!Programming_Assignment.pdf
+!main_menu.c
+!requirements.txt
